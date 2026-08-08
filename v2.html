@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<!-- deploy refresh 2026-08-06b -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<title>My Real Herbal Research — Abbey Boy · v2</title>
+<meta name="description" content="A working archive of herbal plants and their traditional uses, documented since 2015 by Abbey Boy. Yoruba names, botanical names, preparations and sources.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Karla:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light only;
+  --ink:#1C2A21;         /* near-black forest ink — body text */
+  --ink-soft:#3B4A3F;    /* secondary text */
+  --ink-faint:#5E6B60;   /* captions / meta */
+  --paper:#F3ECDB;       /* warm herbarium paper */
+  --paper-2:#EAE0C9;     /* panel */
+  --paper-3:#E0D4B7;     /* deeper panel / label */
+  --line:#C9BB98;        /* hairlines on paper */
+  --leaf:#3E6B2E;        /* deep leaf green */
+  --leaf-2:#5E8A3C;      /* lighter green accent bar */
+  --ochre:#A05A16;       /* burnt ochre accent */
+  --rust:#9A3F26;        /* rust — cautions/seeds */
+  --max:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Karla',system-ui,sans-serif;font-weight:400;
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-.01em;margin:0;color:var(--ink)}
+.mono{font-family:'Space Mono',monospace}
+a{color:var(--ochre)}
+
+.eyebrow{
+  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--leaf);margin:0 0 18px;font-weight:700
+}
+
+/* ---------- masthead ---------- */
+header.top{
+  border-bottom:2px solid var(--ink);position:sticky;top:0;z-index:40;background:var(--paper)
+}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.brand{font-family:'Fraunces',serif;font-weight:600;font-size:22px;color:var(--ink)}
+.brand span{color:var(--ochre)}
+nav a{
+  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;margin-left:22px;font-weight:700
+}
+nav a:hover,nav a:focus{color:var(--ochre)}
+@media(max-width:760px){nav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:84px 0 68px;border-bottom:2px solid var(--ink);position:relative;overflow:hidden}
+.hero:before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(760px 360px at 88% -6%,rgba(94,138,60,.20),transparent 60%);
+  pointer-events:none
+}
+.hero .wrap{position:relative}
+.hero h1{font-size:clamp(42px,7.6vw,80px);line-height:1.03;max-width:15ch;font-weight:600}
+.hero h1 em{font-style:italic;color:var(--ochre);font-weight:400}
+.hero p.lede{max-width:56ch;margin:24px 0 0;font-size:19px;color:var(--ink-soft)}
+.hero .quote{
+  margin:36px 0 0;padding:14px 0 14px 20px;border-left:4px solid var(--leaf-2);
+  font-family:'Fraunces',serif;font-style:italic;font-size:24px;line-height:1.4;max-width:34ch;color:var(--ink)
+}
+.hero .quote cite{display:block;font-family:'Space Mono',monospace;font-style:normal;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-top:12px;font-weight:700}
+.stats{display:flex;flex-wrap:wrap;gap:34px;margin-top:48px;padding-top:26px;border-top:1px solid var(--line)}
+.stat b{display:block;font-family:'Fraunces',serif;font-weight:600;font-size:40px;line-height:1;color:var(--leaf)}
+.stat span{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+
+/* ---------- sections ---------- */
+section{padding:74px 0;border-bottom:1px solid var(--line)}
+section h2{font-size:clamp(29px,4.2vw,42px);max-width:22ch;font-weight:600}
+section .intro{max-width:62ch;color:var(--ink-soft);margin:16px 0 0}
+
+/* ---------- notice ---------- */
+.notice{
+  background:var(--ink);color:var(--paper);border-left:6px solid var(--rust);
+  padding:28px 30px;margin-top:34px;max-width:74ch
+}
+.notice h3{font-size:24px;margin-bottom:10px;color:var(--paper)}
+.notice p{margin:0 0 12px;color:#E6DEC9;font-size:16px}
+.notice p:last-child{margin-bottom:0}
+.notice strong{color:#F3D9A0;font-weight:700}
+
+/* ---------- controls ---------- */
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:34px 0 8px}
+input[type=search]{
+  flex:1 1 260px;min-width:0;background:#FBF6EA;border:2px solid var(--ink);
+  color:var(--ink);padding:14px 16px;font-family:'Karla',sans-serif;font-size:15px;border-radius:0
+}
+input[type=search]::placeholder{color:var(--ink-faint)}
+input[type=search]:focus,.chip:focus{outline:3px solid var(--ochre);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{
+  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  background:#FBF6EA;color:var(--ink);border:1.5px solid var(--ink-soft);
+  padding:8px 13px;cursor:pointer;border-radius:0;font-weight:700
+}
+.chip:hover{border-color:var(--leaf);color:var(--leaf)}
+.chip[aria-pressed=true]{background:var(--leaf);border-color:var(--leaf);color:#FBF6EA}
+.count{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-faint);margin-top:18px;font-weight:700}
+
+/* ---------- herbarium cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;margin-top:22px}
+.sheet{
+  background:#FBF6EA;color:var(--ink);padding:24px 24px 0;position:relative;
+  display:flex;flex-direction:column;border:1.5px solid var(--line)
+}
+.sheet:after{content:"";position:absolute;left:-1.5px;right:-1.5px;bottom:-1.5px;height:6px;background:var(--leaf-2)}
+.sheet[data-tone="root"]:after{background:var(--ochre)}
+.sheet[data-tone="seed"]:after{background:var(--rust)}
+.sheet h3{font-size:28px;line-height:1.12;color:var(--ink);font-weight:600}
+.sheet .binom{font-family:'Space Mono',monospace;font-size:12px;font-style:italic;
+  color:var(--leaf);margin-top:4px;font-weight:700}
+.sheet p{font-size:15.5px;color:var(--ink-soft);margin:16px 0 20px}
+.label{
+  margin-top:auto;margin-bottom:22px;border:1.5px solid var(--ink);
+  border-left:5px solid var(--ink);padding:13px 15px;background:var(--paper-3)
+}
+.label dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px}
+.label dt{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+.label dd{margin:0;font-size:13px;color:var(--ink);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 20px}
+.tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-soft);border:1.5px solid var(--line);padding:4px 8px;font-weight:700}
+
+/* ---------- preparations ---------- */
+.prep{border-top:1.5px solid var(--line);padding:28px 0;display:grid;
+  grid-template-columns:200px 1fr;gap:28px}
+.prep:last-child{border-bottom:1.5px solid var(--line)}
+.prep h3{font-size:26px;line-height:1.14;font-weight:600}
+.prep .for{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ochre);margin-top:8px;font-weight:700}
+.prep ol{margin:0;padding-left:20px;color:var(--ink-soft)}
+.prep ol li{margin-bottom:9px}
+.prep ol li::marker{color:var(--leaf);font-family:'Space Mono',monospace;font-weight:700}
+.prep .dose{margin-top:14px;font-size:14.5px;color:var(--ink);border-left:4px solid var(--leaf-2);
+  padding:6px 0 6px 14px;font-weight:500}
+@media(max-width:760px){.prep{grid-template-columns:1fr;gap:14px}}
+
+/* ---------- questions ---------- */
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:30px}
+.q{background:#FBF6EA;border:1.5px solid var(--line);border-top:4px solid var(--leaf-2);padding:20px 22px}
+.q p{margin:0;font-size:15.5px;color:var(--ink);font-style:italic;font-family:'Fraunces',serif}
+.q .who{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-faint);margin-top:14px;display:block;font-style:normal;font-weight:700}
+
+/* ---------- the long file ---------- */
+.file{background:#FBF6EA;border:2px solid var(--ink);padding:34px;margin-top:34px}
+.file h3{font-size:30px;font-weight:600}
+.file .binom{font-family:'Space Mono',monospace;font-style:italic;font-size:13px;color:var(--leaf);margin-top:6px;font-weight:700}
+.file>p{color:var(--ink-soft)}
+.refs{margin:24px 0 0;padding:0;list-style:none;counter-reset:r}
+.refs li{counter-increment:r;position:relative;padding-left:44px;margin-bottom:18px;
+  font-size:15.5px;color:var(--ink-soft)}
+.refs li:before{content:counter(r,decimal-leading-zero);position:absolute;left:0;top:1px;
+  font-family:'Space Mono',monospace;font-size:12px;color:var(--ochre);letter-spacing:.06em;font-weight:700}
+.refs cite{display:block;font-family:'Space Mono',monospace;font-style:normal;font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-top:6px;font-weight:700}
+.filenote{margin-top:26px;font-size:15px;color:var(--ink-faint);font-style:italic}
+
+.srclink{display:inline-block;margin:0 0 22px;font-family:'Space Mono',monospace;font-size:10.5px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ochre);text-decoration:none;font-weight:700;
+  border-bottom:1px solid transparent}
+.srclink:hover,.srclink:focus{border-bottom-color:var(--ochre)}
+
+/* ---------- sources ---------- */
+.srcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:30px}
+.src{background:#FBF6EA;border:1.5px solid var(--line);border-left:4px solid var(--ochre);padding:20px 22px;scroll-margin-top:84px}
+.src h3{font-size:22px;font-weight:600}
+.src p{margin:10px 0 0;font-size:15px;color:var(--ink-soft)}
+.src a{color:var(--ochre);font-weight:600}
+.src:target{border-left-color:var(--leaf);background:#F4EAD0;box-shadow:inset 0 0 0 2px var(--leaf)}
+
+/* ---------- reach / contact form ---------- */
+.reach{max-width:620px;margin-top:30px}
+.fld{display:block;margin-bottom:18px}
+.fld span{display:block;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-faint);font-weight:700;margin-bottom:8px}
+.fld input,.fld textarea{width:100%;background:#FBF6EA;border:2px solid var(--ink);color:var(--ink);
+  padding:13px 15px;font-family:'Karla',sans-serif;font-size:16px;border-radius:0;resize:vertical}
+.fld input:focus,.fld textarea:focus{outline:3px solid var(--ochre);outline-offset:2px}
+.hp{position:absolute !important;left:-9999px !important;width:1px;height:1px;overflow:hidden}
+#rf-send{background:var(--leaf);color:#FBF6EA;border:none;padding:15px 30px;
+  font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:700;cursor:pointer}
+#rf-send:hover{background:#345C26}
+#rf-send:disabled{opacity:.55;cursor:default}
+.rf-status{margin-top:16px;font-size:15px;min-height:1.3em}
+.rf-status.ok{color:var(--leaf);font-weight:600}
+.rf-status.err{color:var(--rust);font-weight:600}
+.rf-note{margin-top:22px;font-size:14px;color:var(--ink-faint);border-left:3px solid var(--ochre);padding-left:14px}
+
+/* ---------- footer ---------- */
+footer{padding:52px 0 68px;color:var(--ink-soft);font-size:14.5px}
+footer .fbrand{font-family:'Fraunces',serif;font-weight:600;font-size:20px;display:block;margin-bottom:14px;color:var(--ink)}
+footer .fbrand span{color:var(--ochre)}
+footer p{max-width:62ch;margin:0 0 12px}
+.empty{color:var(--ink-faint);font-style:italic;padding:26px 0}
+@media(prefers-reduced-motion:no-preference){
+  .sheet{transition:transform .16s ease}
+  .sheet:hover{transform:translateY(-3px)}
+}
+
+/* ---------- v2: specimen plates ---------- */
+.v2bar{background:var(--ink);color:var(--paper);font-family:'Space Mono',monospace;font-size:11px;
+  letter-spacing:.05em;text-align:center;padding:10px 16px}
+.plate{margin:-24px -24px 18px;height:168px;display:flex;align-items:center;justify-content:center;
+  border-bottom:1.5px solid var(--line);position:relative;overflow:hidden}
+.plate svg{width:74%;height:74%}
+.plate .pbinom{position:absolute;left:14px;bottom:9px;font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);opacity:.75;font-style:normal}
+.plate .pdot{position:absolute;top:10px;right:12px;width:8px;height:8px;border-radius:50%}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">My Real Herbal <span>Research</span></div>
+    <nav>
+      <a href="#index">Herb index</a>
+      <a href="#preparations">Preparations</a>
+      <a href="#file">Stone breaker</a>
+      <a href="#questions">Questions</a>
+      <a href="#sources">Sources</a>
+      <a href="#write">Write</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+<div class="v2bar">Version 2 &middot; illustrated specimen plates — a look &amp; feel preview. Real photos can replace each illustration.</div>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Documented since February 2015 &nbsp;·&nbsp; Abbey Boy</p>
+    <h1>The plants I have studied, and <em>what they are for</em>.</h1>
+    <p class="lede">A working archive of herbal plants and their usefulness — kept in Yoruba and botanical names, with the preparations as they were taught, and the sources they were checked against.</p>
+    <blockquote class="quote">
+      It is the wisdom of God in me. The services are free.
+      <cite>Abbey Boy, August 2018</cite>
+    </blockquote>
+    <div class="stats">
+      <div class="stat"><b>19</b><span>Plants recorded</span></div>
+      <div class="stat"><b>15</b><span>Preparations</span></div>
+      <div class="stat"><b>8</b><span>Sources cited</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <p class="eyebrow">About this archive</p>
+    <h2>One man's notebook, opened up.</h2>
+    <p class="intro">This began in 2015 as a place to document findings on herbal plants and their usefulness. For ten years the research lived in scattered notes and replies to readers who wrote in with real questions. It is gathered here so that it can be searched, read and checked — nothing is sold, and nothing is charged for.</p>
+    <p class="intro">Plants are recorded the way they are actually spoken of at home: the Yoruba name first, the botanical name beside it, the part used, and the traditional use as it was received. Where published sources say something about a plant, they are quoted and named so you can weigh them yourself.</p>
+
+    <div class="notice">
+      <h3>A word before you begin</h3>
+      <p>Everything here is shared freely, as traditional knowledge — the way these plants have been used and handed down. It is offered <strong>to help, not as a prescription or a diagnosis</strong>, and it has not been reviewed by any medical body.</p>
+      <p>Please hold it <strong>alongside a doctor's care, not in place of it</strong>. For serious things — stroke, diabetes, high blood pressure, ulcer, kidney trouble or a lump — keep seeing your doctor, and let them know about any herb you are using, since herbs and medicines can affect one another. It is best not to stop a medicine you have been given in order to try something here.</p>
+      <p>And a gentle reminder: natural does not always mean safe. Take extra care during pregnancy or breastfeeding, and with children. If something is severe or getting worse, please don't wait — get seen.</p>
+    </div>
+  </div>
+</section>
+
+<section id="index">
+  <div class="wrap">
+    <p class="eyebrow">The herb index</p>
+    <h2>Search by name, or by what it is used for.</h2>
+    <p class="intro">Type a Yoruba name, an English name, a botanical name, or a condition — the sheets below filter as you type.</p>
+
+    <div class="controls">
+      <input type="search" id="q" placeholder="Try ewuro, stone, bitter leaf, or blood pressure" aria-label="Search the herb index">
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Filter by use"></div>
+    <p class="count" id="count"></p>
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>No sheet matches that yet. Try a shorter word — or this may be a plant still waiting to be written up.</p>
+  </div>
+</section>
+
+<section id="preparations">
+  <div class="wrap">
+    <p class="eyebrow">Preparations</p>
+    <h2>How they were taught, written down plainly.</h2>
+    <p class="intro">These are recorded as received, in the order the steps were given. Quantities are traditional measures, not clinical doses. Please read the note above first, and talk anything you try over with your doctor.</p>
+    <div id="preps"></div>
+  </div>
+</section>
+
+<section id="file">
+  <div class="wrap">
+    <p class="eyebrow">The long study</p>
+    <h2>Stone breaker: the plant I have followed the longest.</h2>
+    <p class="intro">Of everything in this archive, this is the plant with the most written about it — at home, in Brazil and Peru, and in the research literature. Here is the record, with the sources named.</p>
+
+    <div class="file">
+      <h3>Eyin Olobe · Stone breaker</h3>
+      <p class="binom">Phyllanthus niruri / Phyllanthus urinaria · also chanca piedra, quebra pedra</p>
+      <p>A small herb, not a tree, that grows uncultivated around doorways and compounds. It is known across Yorubaland, Brazil, Peru and the Caribbean under different names that all mean the same thing: the plant that shatters stone. It is prepared as a decoction from the whole plant — leaves, stem and root.</p>
+      <ol class="refs">
+        <li>A tea of the leaves is taken for kidney stones and for urinary infections generally; the plant and its close relatives are used the same way by rural communities across Brazil and Amazonia. Researchers have proposed that an antispasmodic action from compounds in the plant may account for a real effect on stones, and the same plants appear active against viral hepatitis.<cite>Sousa et al., 1991, pp. 377–378</cite></li>
+        <li>In tropical herbal practice it is used to clear obstruction through the body by helping the system pass mucus and stones, and to support the liver and gall bladder by encouraging the flow of bile. It is also taken as a diuretic, for urinary complaints, to help clear uric acid, and — by report — in hypertension, diabetes, bronchitis and fever.<cite>Raintree tropical-plant database</cite></li>
+        <li>The actions recorded for it include dispelling mucus, strengthening the liver and gall bladder, and dispersing calcification. In the energetic framing some practitioners use, it is described as clearing damp heat, moving liver energy and increasing bile, with testing points noted for the liver, gall bladder and kidney.<cite>Traditional-medicine compilation</cite></li>
+        <li>Listed as anodyne, aperitif, carminative, digestive, diuretic, laxative, stomachic, tonic and vermifuge, with reported use for colic, diabetes, dysentery, dyspepsia, fever, flu, jaundice, kidney complaints, malaria and tumours. In testing the plant has shown antihepatotoxic, antispasmodic, antiviral, bactericidal, diuretic, fever-reducing and blood-sugar-lowering activity.<cite>Duke &amp; Vasquez, Amazonian Ethnobotanical Dictionary</cite></li>
+        <li>Widely known as a diuretic for urinary infections and fevers. In Brazil a tea of the whole plant is a home remedy for painful kidneys; in the Bahamas, where it is called hurricane weed, the bitter plant is boiled for poor appetite, constipation and fever.<cite>Field literature</cite></li>
+        <li>The plant drew wider medical interest after it was found to strongly suppress reproduction of the hepatitis B virus — a pathogen linked to liver cancer and carried by hundreds of millions of people. A search of world herbal literature for plants used against jaundice and liver disease, run at the Fox Chase Cancer Center in Philadelphia, brought <em>Phyllanthus</em> forward as one of the most promising to follow up.<cite>Fox Chase Cancer Center</cite></li>
+        <li>In Peru its common name, <em>chanca piedra</em>, means &ldquo;shatter stone&rdquo; — the very idea carried by the Yoruba name — and physicians there have prescribed the feathery-leaved herb for kidney and gall stones.<cite>Reported from Iquitos, Peru</cite></li>
+        <li>A German pharmacist who came to Iquitos to buy the dried plant kept records of more than a hundred people who used it for gall and kidney stones. By his account the stones cleared in about ninety-four percent of cases within a week or two, the main effect noted being occasional cramping as a stone passed, and he judged the result lasting. Records of this kind are collected personal accounts, not a controlled trial.<cite>Maxwell, Witch Doctor's Apprentice</cite></li>
+      </ol>
+      <p class="filenote">Note kept with the file: the sources above are traditional and observational. They are recorded here because they are what the literature says, not as proof of a cure.</p>
+    </div>
+  </div>
+</section>
+
+<section id="questions">
+  <div class="wrap">
+    <p class="eyebrow">From readers</p>
+    <h2>Questions people asked that still need an answer.</h2>
+    <p class="intro">Over the years readers wrote in with the things they were actually carrying. These are kept here, unanswered, as the working list for what to write up next.</p>
+    <div class="qgrid" id="qs"></div>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <p class="eyebrow">Where this comes from</p>
+    <h2>Every plant traces back to its source.</h2>
+    <p class="intro">Each sheet in the index carries a small &ldquo;where this comes from&rdquo; link. Follow it here to see who the knowledge came from — the notebook itself, a contributor, or published literature.</p>
+    <div class="srcgrid">
+      <div class="src" id="src-notes">
+        <h3>Abbey Boy's field notes</h3>
+        <p>Most of the plants here come from traditional Yoruba herbal practice — kept from oral teaching, from elders, and from personal use and observation since 2015. They are documented as received, in his own hand, rather than drawn from published studies.</p>
+      </div>
+      <div class="src" id="src-gilbert">
+        <h3>A contributed reading &mdash; shining bush</h3>
+        <p>The ewe rinrin (<em>Peperomia pellucida</em>) entry follows a 2023 write-up by Prof. Gilbert on the plant's traditional uses. The uses themselves are long-established folk knowledge; the wording here is our own.</p>
+      </div>
+      <div class="src" id="src-lit">
+        <h3>Published &amp; field literature &mdash; stone breaker</h3>
+        <p>The stone breaker (<em>Phyllanthus</em>) is the one plant checked against published sources: Sousa et al. (1991); Duke &amp; Vasquez, <em>Amazonian Ethnobotanical Dictionary</em>; the Raintree tropical-plant database; a Fox Chase Cancer Center literature review; and Nicole Maxwell, <em>Witch Doctor's Apprentice</em>. <a href="#file">Read the full study and its numbered references &uarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="write">
+  <div class="wrap">
+    <p class="eyebrow">Reach the researcher</p>
+    <h2>Write to Abbey Boy.</h2>
+    <p class="intro">Have a question, or want to share what helped you? Send a private note. It goes only to him — it is never shown on this site — and he answers people himself, freely, as he always has.</p>
+    <div class="reach">
+      <label class="fld"><span>Your name</span><input id="rf-name" type="text" autocomplete="name" maxlength="80"></label>
+      <label class="fld"><span>Your email or WhatsApp number</span><input id="rf-contact" type="text" maxlength="120" placeholder="So he can reply to you"></label>
+      <label class="fld"><span>Your message</span><textarea id="rf-msg" rows="5" maxlength="4000"></textarea></label>
+      <input id="rf-web" class="hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" placeholder="Leave this empty">
+      <button id="rf-send" type="button">Send privately</button>
+      <p id="rf-status" class="rf-status" role="status" aria-live="polite"></p>
+      <p class="rf-note">Please don't use this for emergencies. If a symptom is severe or getting worse, see a doctor or go to a hospital. Your message is sent privately to Abbey Boy and is never posted on this site.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="fbrand">My Real Herbal <span>Research</span></span>
+    <p>Written and kept by Abbey Boy. Nothing here is sold, and no product, clinic or practitioner is endorsed on this site.</p>
+    <p>Traditional knowledge, documented for study. Not medical advice. For any serious or worsening symptom, see a doctor.</p>
+  </div>
+</footer>
+
+<script>
+var HERBS = [
+  {y:"Eyin Olobe",e:"Stone breaker",b:"Phyllanthus niruri",part:"Whole plant — leaf, stem, root",tone:"leaf",
+   d:"The most studied plant in this archive. Boiled as a decoction and used for kidney stones, liver complaints, and general pain and weakness.",
+   tags:["Kidney & urinary","Liver","Diabetes","Blood pressure"]},
+  {y:"Ewe Epin",e:"Sandpaper leaf",b:"Ficus exasperata",part:"Fresh leaf",tone:"leaf",
+   d:"The base of the stroke preparation — blended with water and filtered, its liquid is used to carry the other leaves. Recorded as the main leaf, used in the largest quantity.",
+   tags:["Stroke","Blood pressure"]},
+  {y:"Ejinrin",e:"Bitter gourd leaf",b:"Momordica charantia",part:"Leaf",tone:"leaf",
+   d:"Juiced by hand rather than blended — the note kept with it warns that a blender will be damaged. Used with sandpaper leaf liquid.",
+   tags:["Stroke","Diabetes"]},
+  {y:"Ewuro",e:"Bitter leaf",b:"Vernonia amygdalina",part:"Leaf",tone:"leaf",
+   d:"Blended with sandpaper leaf liquid as part of the stroke preparation. A household bitter used widely for cleansing and for sugar.",
+   tags:["Stroke","Diabetes"]},
+  {y:"Ewe Igbale",e:"Moringa",b:"Moringa oleifera",part:"Leaf",tone:"leaf",
+   d:"Blended into the stroke preparation using sandpaper leaf liquid. Kept for general strength and nourishment.",
+   tags:["Stroke","General strength"]},
+  {y:"Afomo Onisana",e:"Mistletoe",b:"Loranthus / Viscum species",part:"Leaf, fresh preferred",tone:"leaf",
+   d:"Taken from cocoa or kolanut trees. Fresh leaves are better; dried leaves may be powdered. A reader in the UK once wrote in asking for its English name so she could find it abroad — this is that answer.",
+   tags:["Stroke","Blood pressure"]},
+  {y:"Abamoda",e:"Leaf of life",b:"Bryophyllum pinnatum",part:"Leaf",tone:"leaf",
+   d:"Blended with sandpaper leaf liquid in the fuller version of the stroke preparation.",
+   tags:["Stroke"]},
+  {y:"Eti Erin",e:"Aloe vera",b:"Aloe barbadensis",part:"Fleshy leaf",tone:"leaf",
+   d:"Cut into pieces, or blended with sandpaper leaf liquid. Included in the stroke preparation.",
+   tags:["Stroke","Skin"]},
+  {y:"Eru Awonka",e:"Grains of Selim",b:"Xylopia aethiopica",part:"Dried fruit, ground",tone:"seed",
+   d:"Fried in a local pot until dark brown, then ground to powder. Used in oil for asthma, and with sulphur for skin complaints and children's rashes.",
+   tags:["Asthma","Skin"]},
+  {y:"Abere",e:"Abere seed",b:"Hunteria umbellata",part:"Seed",tone:"seed",
+   d:"Soaked in water, or ground and added to lime juice or coconut water. Recorded for sugar, for blood pressure, and for piles.",
+   tags:["Diabetes","Blood pressure","Piles"]},
+  {y:"Ibepe",e:"Pawpaw (unripe)",b:"Carica papaya",part:"Unripe fruit, seeds removed",tone:"root",
+   d:"Peeled and cut, seeds removed, eaten with honey until finished. Kept as the anti-stroke fruit. Soaked in water with skin and seeds, it is also recorded for ulcer.",
+   tags:["Stroke","Ulcer"]},
+  {y:"Egbo Ako Ibepe",e:"Male pawpaw root",b:"Carica papaya",part:"Root",tone:"root",
+   d:"Soaked in raffia wine — not palm wine — for four days. The note is firm: water must never touch the roots; clean the sand off with a dry cloth.",
+   tags:["Prostate","Hernia","Thyroid"]},
+  {y:"Ata Igbere",e:"Pepper fruit",b:"Dennettia tripetala",part:"Fruit",tone:"seed",
+   d:"Also called igberi. Eaten daily. Recorded for the prostate and for eye complaints including glaucoma.",
+   tags:["Prostate","Eyes"]},
+  {y:"Ata Ile Pupa",e:"Turmeric",b:"Curcuma longa",part:"Rhizome, powdered",tone:"root",
+   d:"Mixed with ginger, black pepper and cayenne in honey. One level teaspoon in hot water, twice daily.",
+   tags:["Prostate","Inflammation"]},
+  {y:"Ata Ile",e:"Ginger",b:"Zingiber officinale",part:"Rhizome, powdered",tone:"root",
+   d:"Part of the turmeric, ginger, black pepper and cayenne blend kept in honey.",
+   tags:["Prostate","Inflammation"]},
+  {y:"Ewe Mangoro",e:"Mango leaf",b:"Mangifera indica",part:"Leaf",tone:"leaf",
+   d:"About fifteen leaves boiled and left to cool with the leaves still in the water. Half a glass daily from the following day, recorded for sugar.",
+   tags:["Diabetes"]},
+  {y:"Ori",e:"Shea butter",b:"Vitellaria paradoxa",part:"Nut butter",tone:"root",
+   d:"Two tablespoons warmed, morning and evening. Kept in the notes as a long course for ulcer.",
+   tags:["Ulcer"]},
+  {y:"Agbon",e:"Coconut water",b:"Cocos nucifera",part:"Water of the nut",tone:"root",
+   d:"Used as the carrier for ground abere seed in the preparation recorded for piles.",
+   tags:["Piles"]},
+  {y:"Ewe Rinrin",e:"Shining bush / silver bush",b:"Peperomia pellucida",part:"Whole plant — fresh leaves",tone:"leaf",
+   d:"A small, soft, translucent herb that springs up in damp, shady corners after rain. The fresh leaves are the medicine — pounded into a poultice, pressed for their juice, or boiled and taken as a drink. It is recorded most of all for aches in the bones, joints and muscles and the inflammation behind them, and as a simple pain reliever. It is also applied traditionally to breast pain and to lumps in the breast — see the preparation and its caution below.",
+   tags:["Joints & pain","Inflammation","Blood pressure","Digestion","Skin","Kidney & urinary"]}
+];
+
+var PREPS = [
+  {t:"The stroke preparation",f:"Stroke",
+   s:["Blend fresh sandpaper leaf (ewe epin) with water and filter. This liquid carries everything else, and sandpaper leaf should be the largest quantity.",
+      "Juice ejinrin by hand — not in a blender — using the sandpaper leaf liquid.",
+      "Blend moringa leaf with the sandpaper leaf liquid.",
+      "Powder afomo onisana; fresh leaves are better than dried.",
+      "Blend bitter leaf (ewuro) and leaf of life (abamoda) with the sandpaper leaf liquid.",
+      "Cut aloe vera into pieces, or blend it in.",
+      "Alternative: grind everything together with enough water to make it drinkable."],
+   dose:"One glass three times daily for three weeks — a glass morning and night for two weeks, then one glass daily for one week."},
+  {t:"Unripe pawpaw with honey",f:"Stroke",
+   s:["Peel and cut a matured unripe pawpaw and remove the seeds.","Pour honey over the pawpaw.","Eat until the pawpaw is finished."],
+   dose:"Kept in the notes as an anti-stroke preparation."},
+  {t:"Stone breaker decoction",f:"Diabetes · Blood pressure · Kidney stones · Liver",
+   s:["Boil eyin olobe whole — leaves, stem and root — in water.","Remove the plant from the pot.","Use the decoction as the water to prepare amala, eba, semo or pounded yam."],
+   dose:"For about four days."},
+  {t:"Stone breaker in gin",f:"Body pain · General weakness",
+   s:["Get aromatic schnapps gin and a good quantity of eyin olobe.","Soak the leaves, stem and roots in the gin."],
+   dose:"Half a shot as required. Not for anyone avoiding alcohol, pregnant, or on medication that reacts with it."},
+  {t:"Asthma oil",f:"Asthma",
+   s:["Fry eru awonka in a local pot until the colour is dark brown.","Grind to a powder.","Add twelve tablespoons of the powder to 75cl of oil taken from the top of palm oil (epo ogere).","Mix thoroughly before use."],
+   dose:"A reader asked whether this is drunk or rubbed on the chest. The note as recorded does not say — so ask before using it."},
+  {t:"Skin and children's rashes",f:"Skin",
+   s:["Grind eru awonka.","For skin disease, combine with sulphur (imi ojo).","For children's rashes, ground eru awonka alone is recorded."],
+   dose:"Recorded without quantities. Take particular care with anything used on children."},
+  {t:"Abere seed in water",f:"Diabetes · Blood pressure",
+   s:["Peel the back of the abere seeds.","Measure using the third line of an EVA bottle.","Soak the seeds in water."],
+   dose:"Two shots morning and night."},
+  {t:"Abere seed in lime",f:"Diabetes",
+   s:["Grind abere seeds to powder.","Add the powder to lime juice."],
+   dose:"One shot morning and night."},
+  {t:"Abere seed in coconut water",f:"Piles",
+   s:["Grind abere seeds to powder.","Mix the powder into coconut water."],
+   dose:"One shot morning and night."},
+  {t:"Mango leaf water",f:"Diabetes",
+   s:["Boil about fifteen mango leaves.","Allow to cool with the leaves still in the water.","Begin drinking from the next day."],
+   dose:"Half a glass daily."},
+  {t:"Male pawpaw root in raffia wine",f:"Prostate · Hernia · Thyroid",
+   s:["Take the roots of a male pawpaw.","Clean the sand off with a dry cloth — water must not touch the roots.","Soak in raffia wine (oguro), not palm wine, for four days."],
+   dose:"Half a glass morning and night."},
+  {t:"Shining bush massage rub",f:"Joints, muscles & inflammation",
+   s:["Pound a handful of fresh ewe rinrin leaves to a pulp.","Mix the pulp with shea butter to make an ointment — or use the plain leaf-juice on its own, without shea butter.","Massage into the aching bones, joints or muscles."],
+   dose:"Apply as needed. The same rub is used to ease inflammation anywhere on the body."},
+  {t:"Boiled shining bush, taken as a drink",f:"Blood pressure · gout · protein in urine · digestion",
+   s:["Boil the whole fresh plant in water.","Strain, and drink the water extract.","For gout and for protein in the urine, also lay the fresh poultice on the affected part."],
+   dose:"Taken as a course. For ongoing abdominal pain, indigestion or hard stool, used over a period — and tell your doctor if it does not settle."},
+  {t:"Fresh poultice and juice for the skin",f:"Wounds, bleeding, boils & abscess",
+   s:["For wounds, dress with the fresh juice the way aloe gel is used; it also helps stop bleeding.","For a boil or abscess, lay the fresh-leaf poultice or the juice over it to bring it to a head."],
+   dose:"Applied fresh, as needed. See a doctor for a deep wound, a wound that will not stop bleeding, or any spreading infection."},
+  {t:"Fresh poultice for the breast",f:"Breast pain & lumps",
+   s:["Pound fresh ewe rinrin leaves into a soft poultice.","Apply over the affected part of the breast.","Renew the poultice daily."],
+   dose:"In the tradition this is applied daily for breast pain and for lumps. One caring word: a new lump or change in the breast should always be checked by a doctor, and the sooner the better — most are harmless, but some are not, and they are far more treatable when found early. Please use this alongside a doctor's care, not in its place."}
+];
+
+var QS = [
+  {q:"Please what is the English name for afomo onisana? I use it to control blood pressure and I need to get the herbs in the UK.",w:"Reader, August 2018 — answered in the index above"},
+  {q:"Is the asthma preparation to be drunk, or applied to the chest?",w:"Reader, June 2020"},
+  {q:"Please let me know the combination of leaves to bring down high blood pressure.",w:"Reader, January 2019"},
+  {q:"How does one use herbs for fibroid?",w:"Reader, February 2019"},
+  {q:"Please tell me the combination of leaves and roots for haemorrhoids and the pain with it.",w:"Reader, December 2018"},
+  {q:"A friend has psoriasis over his body and is always embarrassed. What herbs can he use?",w:"Reader, July 2019"},
+  {q:"What is done for blood in urine?",w:"Reader, June 2019"},
+  {q:"My friend is suffering from chronic myopia — is there a herb for it?",w:"Reader, June 2020"},
+  {q:"What of liver cancer — which leaf is best?",w:"Reader, December 2018"},
+  {q:"This is my first time on this site. Please, what is this preparation used for?",w:"Reader, August 2019"}
+];
+
+var grid=document.getElementById('grid'),chipBox=document.getElementById('chips'),
+    q=document.getElementById('q'),countEl=document.getElementById('count'),
+    emptyEl=document.getElementById('empty'),active="";
+
+var allTags=[];
+HERBS.forEach(function(h){h.tags.forEach(function(t){if(allTags.indexOf(t)<0)allTags.push(t)})});
+allTags.sort();
+
+function makeChip(label,val){
+  var b=document.createElement('button');
+  b.className='chip';b.type='button';b.textContent=label;
+  b.setAttribute('aria-pressed',active===val?'true':'false');
+  b.addEventListener('click',function(){active=(active===val)?"":val;draw();});
+  return b;
+}
+function drawChips(){
+  chipBox.innerHTML='';
+  chipBox.appendChild(makeChip('All plants',''));
+  allTags.forEach(function(t){chipBox.appendChild(makeChip(t,t))});
+}
+
+function leafSVG(c){return '<svg viewBox="0 0 200 160" fill="none" stroke="'+c+'" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
++'<path d="M100 150 C100 116 100 70 100 26"/>'
++'<path d="M100 126 C77 120 61 103 57 84 C82 86 98 103 100 126Z" fill="'+c+'" fill-opacity="0.10"/>'
++'<path d="M100 106 C123 100 139 83 143 64 C118 66 102 83 100 106Z" fill="'+c+'" fill-opacity="0.10"/>'
++'<path d="M100 82 C79 76 65 61 61 44 C84 46 98 61 100 82Z" fill="'+c+'" fill-opacity="0.10"/>'
++'<path d="M100 62 C121 56 135 41 139 24 C116 26 102 41 100 62Z" fill="'+c+'" fill-opacity="0.10"/>'
++'<circle cx="100" cy="22" r="4" fill="'+c+'"/></svg>';}
+function seedSVG(c){return '<svg viewBox="0 0 200 160" fill="none" stroke="'+c+'" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
++'<path d="M100 150 C100 128 96 110 90 98"/>'
++'<ellipse cx="78" cy="72" rx="15" ry="28" transform="rotate(-24 78 72)" fill="'+c+'" fill-opacity="0.12"/>'
++'<ellipse cx="104" cy="60" rx="15" ry="30" transform="rotate(6 104 60)" fill="'+c+'" fill-opacity="0.12"/>'
++'<ellipse cx="127" cy="76" rx="14" ry="26" transform="rotate(28 127 76)" fill="'+c+'" fill-opacity="0.12"/>'
++'<path d="M78 46 L78 98 M104 30 L104 90 M127 52 L127 100"/></svg>';}
+function rootSVG(c){return '<svg viewBox="0 0 200 160" fill="none" stroke="'+c+'" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'
++'<path d="M90 18 C96 12 106 12 112 18"/>'
++'<path d="M101 16 C97 42 106 64 101 90 C98 112 92 130 88 148"/>'
++'<path d="M101 42 C114 46 124 42 135 34"/>'
++'<path d="M100 66 C86 70 75 66 64 57"/>'
++'<path d="M101 90 C114 96 123 98 134 98"/>'
++'<path d="M95 114 C83 120 74 126 68 137"/>'
++'<path d="M91 132 C101 136 110 140 117 149"/></svg>';}
+function plate(h){
+  var c = h.tone==='root' ? '#A05A16' : (h.tone==='seed' ? '#9A3F26' : '#3E6B2E');
+  var bg = h.tone==='root' ? '#F0E6CF' : (h.tone==='seed' ? '#F1DFD3' : '#E7EDD9');
+  var svg = h.tone==='root' ? rootSVG(c) : (h.tone==='seed' ? seedSVG(c) : leafSVG(c));
+  return '<div class="plate" style="background:'+bg+'"><span class="pdot" style="background:'+c+'"></span>'+svg+'<span class="pbinom">'+h.b+'</span></div>';
+}
+function card(h){
+  var el=document.createElement('article');
+  el.className='sheet';el.setAttribute('data-tone',h.tone);
+  var tags=h.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join('');
+  var href = h.b.indexOf('Phyllanthus')>-1 ? '#src-lit' : (h.y==='Ewe Rinrin' ? '#src-gilbert' : '#src-notes');
+  el.innerHTML=
+    plate(h)+
+    '<h3>'+h.y+'</h3>'+
+    '<p class="binom">'+h.b+'</p>'+
+    '<p>'+h.d+'</p>'+
+    '<div class="tags">'+tags+'</div>'+
+    '<div class="label"><dl>'+
+      '<dt>Yoruba</dt><dd>'+h.y+'</dd>'+
+      '<dt>English</dt><dd>'+h.e+'</dd>'+
+      '<dt>Botanical</dt><dd><em>'+h.b+'</em></dd>'+
+      '<dt>Part used</dt><dd>'+h.part+'</dd>'+
+    '</dl></div>'+
+    '<a class="srclink" href="'+href+'">Where this comes from &#8594;</a>';
+  return el;
+}
+function draw(){
+  var term=(q.value||'').toLowerCase().trim();
+  var out=HERBS.filter(function(h){
+    var hay=(h.y+' '+h.e+' '+h.b+' '+h.d+' '+h.part+' '+h.tags.join(' ')).toLowerCase();
+    var okT=!active||h.tags.indexOf(active)>-1;
+    return okT&&(!term||hay.indexOf(term)>-1);
+  });
+  grid.innerHTML='';
+  out.forEach(function(h){grid.appendChild(card(h))});
+  countEl.textContent=out.length+(out.length===1?' sheet':' sheets')+(active?' · '+active:'');
+  emptyEl.hidden=out.length>0;
+  drawChips();
+}
+q.addEventListener('input',draw);
+draw();
+
+var pbox=document.getElementById('preps');
+PREPS.forEach(function(p){
+  var el=document.createElement('div');el.className='prep';
+  var steps=p.s.map(function(s){return '<li>'+s+'</li>'}).join('');
+  el.innerHTML='<div><h3>'+p.t+'</h3><p class="for">'+p.f+'</p></div>'+
+    '<div><ol>'+steps+'</ol><p class="dose">'+p.dose+'</p></div>';
+  pbox.appendChild(el);
+});
+
+var qbox=document.getElementById('qs');
+QS.forEach(function(item){
+  var el=document.createElement('div');el.className='q';
+  el.innerHTML='<p>“'+item.q+'”</p><span class="who">'+item.w+'</span>';
+  qbox.appendChild(el);
+});
+
+/* ---------- private message relay ---------- */
+var RELAY_ENDPOINT = "https://script.google.com/macros/s/AKfycbzLWh5UWbizfkU4EHqw8iMx9MNVxqWhekOnIOj9tWGm8vizGuKvfdb6gyan5YwLZOSw/exec";
+(function(){
+  var send=document.getElementById('rf-send');
+  if(!send) return;
+  var nm=document.getElementById('rf-name'),ct=document.getElementById('rf-contact'),
+      ms=document.getElementById('rf-msg'),hp=document.getElementById('rf-web'),
+      st=document.getElementById('rf-status');
+  function setStatus(t,cls){st.textContent=t;st.className='rf-status'+(cls?(' '+cls):'');}
+  send.addEventListener('click',function(){
+    var name=(nm.value||'').trim(),contact=(ct.value||'').trim(),msg=(ms.value||'').trim();
+    if(!name||!contact||!msg){setStatus('Please fill in your name, a way to reach you, and your message.','err');return;}
+    if(RELAY_ENDPOINT.indexOf('PASTE_')===0){setStatus('Messaging is being set up — please check back shortly.','err');return;}
+    send.disabled=true;setStatus('Sending your message…','');
+    fetch(RELAY_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({name:name,contact:contact,message:msg,website:(hp.value||'')})})
+      .then(function(r){return r.json().catch(function(){return {ok:true};});})
+      .then(function(res){
+        if(res&&res.ok){setStatus('Sent. Abbey Boy will reply to you himself — thank you.','ok');nm.value='';ct.value='';ms.value='';}
+        else{setStatus((res&&res.error)||'That did not go through. Please try again in a moment.','err');}
+      })
+      .catch(function(){setStatus('Your message may not have sent. Please check your connection and try again.','err');})
+      .then(function(){send.disabled=false;});
+  });
+})();
+</script>
+</body>
+</html>
