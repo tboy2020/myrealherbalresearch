@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<title>My Real Herbal Research — The Body Map · v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Karla:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light only;
+  --ink:#1C2A21;--ink-soft:#3B4A3F;--ink-faint:#5E6B60;
+  --paper:#F3ECDB;--paper-2:#EAE0C9;--paper-3:#E0D4B7;--line:#C9BB98;
+  --leaf:#3E6B2E;--leaf-2:#5E8A3C;--ochre:#A05A16;--rust:#9A3F26;
+  --max:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Karla',system-ui,sans-serif;
+  font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;margin:0;letter-spacing:-.01em}
+a{color:var(--ochre)}
+.eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--leaf);font-weight:700;margin:0 0 12px}
+
+header.top{border-bottom:2px solid var(--ink);position:sticky;top:0;z-index:40;background:var(--paper)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px}
+.brand{font-family:'Fraunces',serif;font-weight:600;font-size:21px}
+.brand span{color:var(--ochre)}
+.top nav a{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;margin-left:20px;font-weight:700}
+.top nav a:hover{color:var(--ochre)}
+@media(max-width:640px){.top nav{display:none}}
+
+.v3bar{background:var(--ink);color:var(--paper);font-family:'Space Mono',monospace;font-size:11px;
+  letter-spacing:.04em;text-align:center;padding:10px 14px}
+
+.intro{padding:34px 0 8px}
+.intro h1{font-size:clamp(30px,6vw,52px);line-height:1.04;max-width:16ch}
+.intro h1 em{font-style:italic;color:var(--ochre);font-weight:400}
+.intro p{max-width:58ch;color:var(--ink-soft);margin:16px 0 0}
+
+.modeswitch{display:flex;gap:10px;margin:26px 0 6px;flex-wrap:wrap}
+.modeswitch button{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  font-weight:700;border:1.5px solid var(--ink);background:#FBF6EA;color:var(--ink);padding:11px 16px;cursor:pointer}
+.modeswitch button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+
+.stage{display:grid;grid-template-columns:minmax(240px,360px) 1fr;gap:30px;padding:20px 0 70px;align-items:start}
+@media(max-width:820px){.stage{grid-template-columns:1fr;gap:20px}}
+
+.figurewrap{position:sticky;top:80px;background:#FBF6EA;border:1.5px solid var(--line);padding:14px}
+@media(max-width:820px){.figurewrap{position:static}}
+svg#figure{width:100%;height:auto;display:block;touch-action:manipulation}
+
+.marker{cursor:pointer}
+.marker .hit{fill:transparent}
+.marker .dot{fill:var(--ink-faint);opacity:.5;transition:.2s}
+.marker .ring{fill:none;opacity:0}
+.marker .mlabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.05em;
+  text-transform:uppercase;fill:var(--ink);opacity:0;font-weight:700}
+.marker:hover .dot{opacity:.9;fill:var(--ochre)}
+.marker.on .dot{fill:var(--leaf);opacity:1}
+.marker.on .mlabel{opacity:1}
+.marker.on .ring{fill:var(--leaf-2);opacity:.5;animation:pulse 1.8s ease-out infinite}
+.marker.hint .dot{fill:var(--ochre);opacity:.85}
+@keyframes pulse{0%{r:5px;opacity:.55}100%{r:22px;opacity:0}}
+
+.figurenote{margin-top:10px;font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--ink-faint);text-align:center}
+
+.panel{min-height:300px}
+.pick{margin:0 0 22px;background:#FBF6EA;border:1.5px solid var(--line);padding:16px 18px}
+.pick label{display:block;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-faint);font-weight:700;margin-bottom:8px}
+.pick select{width:100%;background:var(--paper);border:2px solid var(--ink);color:var(--ink);
+  padding:11px 12px;font-family:'Karla',sans-serif;font-size:15px;border-radius:0}
+
+.p-kicker{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--leaf);font-weight:700;margin:0 0 8px}
+.p-title{font-size:clamp(26px,4vw,38px);line-height:1.08}
+.p-binom{font-family:'Space Mono',monospace;font-style:italic;font-size:13px;color:var(--leaf);
+  margin-top:5px;font-weight:700}
+.p-body{color:var(--ink-soft);margin:16px 0 20px;max-width:56ch}
+.p-sub{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);font-weight:700;margin:22px 0 12px}
+
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  font-weight:700;border:1.5px solid var(--ink-soft);background:#FBF6EA;color:var(--ink);
+  padding:9px 13px;cursor:pointer}
+.chip:hover{border-color:var(--leaf);color:var(--leaf)}
+.chip.leaf{border-color:var(--leaf);color:var(--leaf)}
+
+.plantlist{display:grid;grid-template-columns:1fr;gap:10px;margin-top:4px}
+.pl{display:block;width:100%;text-align:left;background:#FBF6EA;border:1.5px solid var(--line);
+  border-left:4px solid var(--leaf-2);padding:14px 16px;cursor:pointer}
+.pl:hover{border-left-color:var(--ochre);background:#F6EFDF}
+.pl b{font-family:'Fraunces',serif;font-weight:600;font-size:19px;display:block}
+.pl i{font-family:'Space Mono',monospace;font-style:italic;font-size:12px;color:var(--leaf);font-weight:700}
+.pl span{display:block;font-size:14px;color:var(--ink-soft);margin-top:6px}
+.back{display:inline-block;margin-top:24px;font-family:'Space Mono',monospace;font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ochre);font-weight:700;cursor:pointer}
+.empty{color:var(--ink-faint);font-style:italic}
+
+footer{border-top:1px solid var(--line);padding:34px 0 60px;color:var(--ink-soft);font-size:14px}
+footer .fb{font-family:'Fraunces',serif;font-weight:600;font-size:19px;display:block;margin-bottom:10px}
+footer .fb span{color:var(--ochre)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">My Real Herbal <span>Research</span></div>
+    <nav>
+      <a href="index.html">The archive</a>
+      <a href="body.html">The body map</a>
+    </nav>
+  </div>
+</header>
+<div class="v3bar">Version 3 &middot; the body map — an early preview. Tap a point on the body, or choose a plant.</div>
+
+<div class="wrap">
+  <div class="intro">
+    <p class="eyebrow">The body map</p>
+    <h1>Meet the plants <em>through the body</em> they serve.</h1>
+    <p>Start from the body — tap where you are troubled, and find the plants the tradition uses there. Or start from a plant, and watch every part of the body it reaches light up. Two doors, one map.</p>
+    <div class="modeswitch" role="group" aria-label="Choose a starting point">
+      <button id="mode-body" type="button" aria-pressed="true">Start from the body</button>
+      <button id="mode-plant" type="button" aria-pressed="false">Start from a plant</button>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div>
+      <div class="figurewrap">
+        <svg id="figure" viewBox="0 0 300 720" aria-label="A simple figure of the body with tappable points">
+          <g fill="#E0D4B7" stroke="#B7A87F" stroke-width="2.5" stroke-linejoin="round">
+            <circle cx="150" cy="56" r="34"/>
+            <path d="M139 86 h22 v22 h-22 Z" rx="8"/>
+            <path d="M104 116 Q150 100 196 116 Q200 118 199 126 L182 306 Q150 322 118 306 L101 126 Q100 118 104 116 Z"/>
+            <path d="M108 124 Q86 132 80 202 L72 336 Q80 350 94 340 L104 214 Q108 156 120 140 Z"/>
+            <path d="M192 124 Q214 132 220 202 L228 336 Q220 350 206 340 L196 214 Q192 156 180 140 Z"/>
+            <path d="M118 300 Q150 316 182 300 L188 380 Q150 396 112 380 Z"/>
+            <path d="M120 372 L146 372 L144 694 Q133 704 122 694 Z"/>
+            <path d="M154 372 L180 372 L178 694 Q167 704 156 694 Z"/>
+          </g>
+          <g id="markers"></g>
+        </svg>
+        <div class="figurenote">Indicative map — points are a guide, not exact anatomy</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="pick" id="pickwrap" hidden>
+        <label for="plantpick">Choose a plant</label>
+        <select id="plantpick"><option value="">— pick a plant —</option></select>
+      </div>
+      <div id="panelbody"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span class="fb">My Real Herbal <span>Research</span></span>
+    <p>Traditional knowledge, documented for study — not medical advice. The body map is a guide to help you find your way to the plants; for any serious or worsening symptom, please see a doctor.</p>
+    <p><a href="index.html">&larr; Back to the full archive</a></p>
+  </div>
+</footer>
+
+<script>
+var HERBS = [
+  {y:"Eyin Olobe",e:"Stone breaker",b:"Phyllanthus niruri",d:"Boiled as a decoction for kidney stones, liver complaints, and general pain and weakness.",tags:["Kidney & urinary","Liver","Diabetes","Blood pressure"]},
+  {y:"Ewe Epin",e:"Sandpaper leaf",b:"Ficus exasperata",d:"The base of the stroke preparation — blended and filtered, its liquid carries the other leaves.",tags:["Stroke","Blood pressure"]},
+  {y:"Ejinrin",e:"Bitter gourd leaf",b:"Momordica charantia",d:"Juiced by hand, used with sandpaper leaf liquid.",tags:["Stroke","Diabetes"]},
+  {y:"Ewuro",e:"Bitter leaf",b:"Vernonia amygdalina",d:"A household bitter used widely for cleansing and for sugar.",tags:["Stroke","Diabetes"]},
+  {y:"Ewe Igbale",e:"Moringa",b:"Moringa oleifera",d:"Kept for general strength and nourishment.",tags:["Stroke","General strength"]},
+  {y:"Afomo Onisana",e:"Mistletoe",b:"Loranthus / Viscum species",d:"Taken from cocoa or kolanut trees; used for blood pressure.",tags:["Stroke","Blood pressure"]},
+  {y:"Abamoda",e:"Leaf of life",b:"Bryophyllum pinnatum",d:"Blended into the fuller stroke preparation.",tags:["Stroke"]},
+  {y:"Eti Erin",e:"Aloe vera",b:"Aloe barbadensis",d:"Cut or blended into the stroke preparation; used on the skin.",tags:["Stroke","Skin"]},
+  {y:"Eru Awonka",e:"Grains of Selim",b:"Xylopia aethiopica",d:"Fried and ground; used in oil for asthma and with sulphur for the skin.",tags:["Asthma","Skin"]},
+  {y:"Abere",e:"Abere seed",b:"Hunteria umbellata",d:"Soaked or ground; recorded for sugar, blood pressure and piles.",tags:["Diabetes","Blood pressure","Piles"]},
+  {y:"Ibepe",e:"Pawpaw (unripe)",b:"Carica papaya",d:"Eaten with honey; the anti-stroke fruit. Soaked, also recorded for ulcer.",tags:["Stroke","Ulcer"]},
+  {y:"Egbo Ako Ibepe",e:"Male pawpaw root",b:"Carica papaya",d:"Soaked in raffia wine for four days.",tags:["Prostate","Hernia","Thyroid"]},
+  {y:"Ata Igbere",e:"Pepper fruit",b:"Dennettia tripetala",d:"Also called igberi. Eaten daily for the prostate and for the eyes.",tags:["Prostate","Eyes"]},
+  {y:"Ata Ile Pupa",e:"Turmeric",b:"Curcuma longa",d:"Mixed with ginger, pepper and cayenne in honey.",tags:["Prostate","Inflammation"]},
+  {y:"Ata Ile",e:"Ginger",b:"Zingiber officinale",d:"Part of the turmeric-ginger blend kept in honey.",tags:["Prostate","Inflammation"]},
+  {y:"Ewe Mangoro",e:"Mango leaf",b:"Mangifera indica",d:"Leaves boiled and cooled; recorded for sugar.",tags:["Diabetes"]},
+  {y:"Ori",e:"Shea butter",b:"Vitellaria paradoxa",d:"Warmed, morning and evening; a long course for ulcer.",tags:["Ulcer"]},
+  {y:"Agbon",e:"Coconut water",b:"Cocos nucifera",d:"The carrier for ground abere seed in the piles preparation.",tags:["Piles"]},
+  {y:"Ewe Rinrin",e:"Shining bush",b:"Peperomia pellucida",d:"Fresh leaves for joints, inflammation, blood pressure, digestion and the skin.",tags:["Joints & pain","Inflammation","Blood pressure","Digestion","Skin","Kidney & urinary"]}
+];
+
+var SYSTEMS = [
+  {id:"brain",  name:"Brain & nerves",       tags:["Stroke"],                         pts:[[150,40]]},
+  {id:"head",   name:"Head & eyes",          tags:["Eyes"],                           pts:[[150,54]]},
+  {id:"thyroid",name:"Thyroid & neck",       tags:["Thyroid"],                        pts:[[150,100]]},
+  {id:"lungs",  name:"Lungs & breath",       tags:["Asthma"],                         pts:[[126,172],[174,172]]},
+  {id:"heart",  name:"Heart & blood",        tags:["Blood pressure"],                 pts:[[158,188]]},
+  {id:"whole",  name:"Whole body & strength",tags:["General strength"],               pts:[[150,224]]},
+  {id:"liver",  name:"Liver",                tags:["Liver"],                          pts:[[124,252]]},
+  {id:"stomach",name:"Stomach & digestion",  tags:["Ulcer","Digestion"],              pts:[[150,268]]},
+  {id:"sugar",  name:"Blood sugar",          tags:["Diabetes"],                       pts:[[172,286]]},
+  {id:"kidney", name:"Kidneys & water",      tags:["Kidney & urinary"],               pts:[[118,300],[182,300]]},
+  {id:"pelvis", name:"Pelvis & reproduction",tags:["Prostate","Hernia","Piles"],      pts:[[150,356]]},
+  {id:"skin",   name:"Skin",                 tags:["Skin"],                           pts:[[214,320]]},
+  {id:"joints", name:"Joints & muscles",     tags:["Joints & pain","Inflammation"],   pts:[[128,556],[172,556]]}
+];
+
+var SVGNS="http://www.w3.org/2000/svg";
+var markersG=document.getElementById('markers');
+var panelBody=document.getElementById('panelbody');
+var pickWrap=document.getElementById('pickwrap');
+var plantpick=document.getElementById('plantpick');
+var mBody=document.getElementById('mode-body');
+var mPlant=document.getElementById('mode-plant');
+
+var markerEls={}; // id -> [g,...]
+var activeSystem=null, activePlant=null;
+
+function overlap(a,b){for(var i=0;i<a.length;i++){if(b.indexOf(a[i])>-1)return true;}return false;}
+function plantsForSystem(sys){return HERBS.filter(function(h){return overlap(h.tags,sys.tags);});}
+function systemsForPlant(h){return SYSTEMS.filter(function(s){return overlap(s.tags,h.tags);});}
+function sysById(id){for(var i=0;i<SYSTEMS.length;i++){if(SYSTEMS[i].id===id)return SYSTEMS[i];}return null;}
+
+/* build markers */
+SYSTEMS.forEach(function(s){
+  markerEls[s.id]=[];
+  s.pts.forEach(function(p){
+    var g=document.createElementNS(SVGNS,'g');
+    g.setAttribute('class','marker');
+    var ring=document.createElementNS(SVGNS,'circle');
+    ring.setAttribute('class','ring');ring.setAttribute('cx',p[0]);ring.setAttribute('cy',p[1]);ring.setAttribute('r',6);
+    var hit=document.createElementNS(SVGNS,'circle');
+    hit.setAttribute('class','hit');hit.setAttribute('cx',p[0]);hit.setAttribute('cy',p[1]);hit.setAttribute('r',17);
+    var dot=document.createElementNS(SVGNS,'circle');
+    dot.setAttribute('class','dot');dot.setAttribute('cx',p[0]);dot.setAttribute('cy',p[1]);dot.setAttribute('r',5.5);
+    var lab=document.createElementNS(SVGNS,'text');
+    lab.setAttribute('class','mlabel');
+    lab.setAttribute('x', p[0] < 150 ? p[0]-10 : p[0]+10);
+    lab.setAttribute('y', p[1]+3);
+    lab.setAttribute('text-anchor', p[0] < 150 ? 'end' : 'start');
+    lab.textContent=s.name;
+    g.appendChild(ring);g.appendChild(dot);g.appendChild(lab);g.appendChild(hit);
+    g.addEventListener('click',function(){ selectSystem(s.id); });
+    markersG.appendChild(g);
+    markerEls[s.id].push(g);
+  });
+});
+
+function clearMarkers(){
+  SYSTEMS.forEach(function(s){
+    markerEls[s.id].forEach(function(g){g.setAttribute('class','marker');});
+  });
+}
+function lightMarkers(ids,cls){
+  ids.forEach(function(id){
+    (markerEls[id]||[]).forEach(function(g){g.setAttribute('class','marker '+(cls||'on'));});
+  });
+}
+
+function selectSystem(id){
+  activeSystem=id;activePlant=null;
+  clearMarkers();lightMarkers([id],'on');
+  var sys=sysById(id);
+  var plants=plantsForSystem(sys);
+  var html='<p class="p-kicker">In the body</p><h2 class="p-title">'+sys.name+'</h2>';
+  html+='<p class="p-body">The plants the tradition uses here — tap one to see everywhere it reaches in the body.</p>';
+  html+='<div class="plantlist">';
+  if(plants.length===0){html+='<p class="empty">Nothing recorded here yet.</p>';}
+  plants.forEach(function(h){
+    var idx=HERBS.indexOf(h);
+    html+='<button class="pl" type="button" onclick="selectPlant('+idx+')"><b>'+h.y+'</b><i>'+h.b+'</i><span>'+h.e+' — '+h.d+'</span></button>';
+  });
+  html+='</div>';
+  panelBody.innerHTML=html;
+}
+
+function selectPlant(idx){
+  activePlant=idx;activeSystem=null;
+  var h=HERBS[idx];
+  var syss=systemsForPlant(h);
+  var ids=syss.map(function(s){return s.id;});
+  clearMarkers();lightMarkers(ids,'on');
+  if(plantpick) plantpick.value=String(idx);
+  var html='<p class="p-kicker">The plant</p><h2 class="p-title">'+h.y+'</h2><p class="p-binom">'+h.b+' &middot; '+h.e+'</p>';
+  html+='<p class="p-body">'+h.d+'</p>';
+  html+='<p class="p-sub">Where it reaches in the body</p><div class="chips">';
+  syss.forEach(function(s){
+    html+='<button class="chip leaf" type="button" onclick="selectSystem(\''+s.id+'\')">'+s.name+'</button>';
+  });
+  html+='</div>';
+  html+='<span class="back" onclick="resetView()">&larr; show the whole body</span>';
+  panelBody.innerHTML=html;
+}
+
+function resetView(){
+  activeSystem=null;activePlant=null;
+  clearMarkers();
+  // gently hint all points
+  SYSTEMS.forEach(function(s){markerEls[s.id].forEach(function(g){g.setAttribute('class','marker');});});
+  panelBody.innerHTML='<p class="p-kicker">Begin anywhere</p><h2 class="p-title">Where does it trouble you?</h2>'+
+    '<p class="p-body">Tap a glowing point on the body to find the plants used there — or switch to “Start from a plant” to see a plant light up the body.</p>';
+}
+
+/* mode switch */
+function setMode(m){
+  if(m==='plant'){
+    mPlant.setAttribute('aria-pressed','true');mBody.setAttribute('aria-pressed','false');
+    pickWrap.hidden=false;
+    if(activePlant===null){ selectPlant(0); }
+  }else{
+    mBody.setAttribute('aria-pressed','true');mPlant.setAttribute('aria-pressed','false');
+    pickWrap.hidden=true;
+    if(activeSystem===null){ selectSystem('kidney'); }
+  }
+}
+mBody.addEventListener('click',function(){setMode('body');});
+mPlant.addEventListener('click',function(){setMode('plant');});
+
+/* plant picker */
+HERBS.forEach(function(h,i){
+  var o=document.createElement('option');o.value=String(i);o.textContent=h.y+' — '+h.e;
+  plantpick.appendChild(o);
+});
+plantpick.addEventListener('change',function(){ if(plantpick.value!=='') selectPlant(parseInt(plantpick.value,10)); });
+
+/* default: showcase the kidney -> stone breaker path */
+selectSystem('kidney');
+</script>
+</body>
+</html>
